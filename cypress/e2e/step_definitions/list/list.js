@@ -1,7 +1,6 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps'
 
 //  Scenario:CT01 - Criar uma lista
-
 Given(/^que tenha criado um board$/, () => {
 	return true;
 });
@@ -26,14 +25,12 @@ When(/^envio uma nova requisicao$/, () => {
         expect(response.body.name).to.eq("backlog");
         expect(response.body.closed).to.eq(false);
         expect(response.body.color).to.eq(null);
-       
     });
 });
 
 Then(/^deve retornar as informações da lista criada e status code 200$/, () => {
 	return true;
 });
-
 
 //  Scenario:CT02 - Buscar uma lista pelo ID
 Given(/^que tenha criado um board1$/, () => {
@@ -63,6 +60,3 @@ Then(/^deve retornar a lista de interesse e status code 2001$/, () => {
     
     });
 });
-
-
-//Scenario: CT03 - Atualziar um card

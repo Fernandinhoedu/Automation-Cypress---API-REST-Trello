@@ -19,3 +19,5 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
+// usually cypress/support/index.js
+import '@bahmutov/cy-api'

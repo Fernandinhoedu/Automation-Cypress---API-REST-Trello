@@ -24,7 +24,7 @@ Feature: [Card - TRELLO]  POST, GET, PUT, DELETE
     Then    deve exibir o card atualizado status code 2003
 
   Scenario: CT04 - Deletar um card
-    Given   que tenha criado um CARD
-    And     informo o <id> card
-    When    envio uma nova requisicao
-    Then    deve deletar o card de interesse e retornar status code 200
+    Given   que tenha criado um CARD4
+    And     informo o <id> card4
+    When    envio uma nova requisicao4
+    Then    deve deletar o card de interesse

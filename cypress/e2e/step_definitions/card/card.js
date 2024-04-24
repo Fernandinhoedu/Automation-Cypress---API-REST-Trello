@@ -1,9 +1,7 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps'
-
 import card from '../../../fixtures/card/card.json'
 
 //  Scenario:CT01 - Criar uma Card
-
 Given(/^que tenha criado um board e uma lista$/, () => {
 	return true;
 });
@@ -33,15 +31,11 @@ When(/^envio uma nova requisicao$/, () => {
 	return true;
 });
 
-
 Then(/^deve retornar as informações do card status code 200$/, () => {
 	return true;
 });
 
-
-
 //  Scenario: CT02 - Buscar o card via ID
-
 Given(/^que tenha criado um CARD$/, () => {
 	return true;
 });
@@ -85,14 +79,11 @@ Then(/^deve retornar o card de interesse e status code 200$/, () => {
             });
             expect(response.body).to.have.property('closed', false);
             expect(response.body).to.have.property('dueComplete', false);
-    
     });
-
   
 });
 
 //  Scenario: CT03 - Atualizar um card
-
 Given(/^que tenha criado um CARD3$/, () => {
 	return true;
 });
@@ -162,19 +153,76 @@ Then(/^deve exibir o card atualizado status code 2003$/, () => {
 });
 
 //  Scenario: CT04 - Deletar um card
-
-Given(/^que tenha criado um CARD$/, () => {
+Given(/^que tenha criado um CARD4$/, () => {
 	return true;
 });
 
-Then(/^informo o <id> card$/, () => {
+Then(/^informo o <id> card4$/, () => {
 	return true;
 });
 
-When(/^envio uma nova requisicao$/, () => {
-	return true;
+When(/^envio uma nova requisicao4$/, () => {
+	let board_id = '';
+    let card = {};
+    
+    cy.request({
+        method: 'POST',
+        url: `${Cypress.config().trello_api}/boards/?name=DELETE&key=${Cypress.env('KEY')}&token=${Cypress.env('TOKEN')}`,
+        failOnStatusCode: false
+    }).then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body).to.not.be.null;
+        board_id = response.body.id;
+        cy.log(board_id);
+    });
+
+    // //CREATE LIST
+    return cy.request({
+        method: 'POST',
+        url: `${Cypress.config().trello_api}/lists?name=backlog&idBoard=${board_id}&key=${Cypress.env('KEY')}&token=${Cypress.env('TOKEN')}`,
+        failOnStatusCode: false
+    }).should((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body).to.not.be.null;
+        expect(response.body.closed).to.eq(false);
+        expect(response.body.color).to.eq(null);
+        let list_id = response.body.id;
+        cy.log(`List ID: ${list_id}`);
+        cy.log(list_id);
+
+
+    //create card
+      
+    return cy.request({
+            method: 'POST',
+            url: `${Cypress.config().trello_api}/cards?idList=${list_id}&key=${Cypress.env('KEY')}&token=${Cypress.env('TOKEN')}`,
+            body : card,
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.not.be.null;
+            let card_id = response.body.id;
+            cy.log(`Card ID: ${card_id}`);
+            cy.log(response.body)
+        });
+
+    //delete
+        cy.request({
+            method: 'DELETE',
+            url: `${Cypress.config().trello_api}/cards/${card_id}?key=${Cypress.env('KEY')}&token=${Cypress.env('TOKEN')}`,
+            body : card,
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.not.be.null;
+            card_id = response.body.id;
+            cy.log(card_id);
+            cy.log(response.body)
+        });
+    });
+
 });
 
-Then(/^deve deletar o card de interesse e retornar status code 200$/, () => {
+Then(/^deve deletar o card de interesse$/, () => {
 	return true;
 });

@@ -4,18 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-     "cy:open" : "list_id=66287bc636a522a9bfc07d90, board_id= 662872a52570ce65288a1254,KEY =1d933f7b732526f81b840036ab6104d9 ,TOKEN= 'ATTAe4691eb61cff55337c0232fae9084fbe6f435e015be592443ac613a84cea235cC650C5E9' cypress open"
+    "test": "echo \"Error: no test specified\" && exit 1"
+    
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@bahmutov/cy-api": "^2.2.6",
     "cypress": "^13.8.1",
     "cypress-cucumber-preprocessor": "^4.3.1"
   },
   "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": true ,
-    "stepDefinitions" :"cypress/e2e/step_definitions"
+    "nonGlobalStepDefinitions": true,
+    "stepDefinitions": "cypress/e2e/step_definitions"
   }
 }
